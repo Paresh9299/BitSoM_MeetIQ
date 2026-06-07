@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet-IQ Wireframes</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f6f9;
+      padding:24px;
+      color:#1f2937;
+    }
+
+    h1{
+      text-align:center;
+      color:#1d4ed8;
+      margin-bottom:8px;
+    }
+
+    .subtitle{
+      text-align:center;
+      color:#6b7280;
+      margin-bottom:28px;
+    }
+
+    .flow-title{
+      text-align:center;
+      font-size:14px;
+      color:#6b7280;
+      margin-bottom:24px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(320px, 1fr));
+      gap:20px;
+      max-width:1400px;
+      margin:0 auto;
+    }
+
+    .screen{
+      background:white;
+      border:2px solid #111827;
+      border-radius:18px;
+      min-height:560px;
+      padding:16px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.08);
+      position:relative;
+    }
+
+    .screen-header{
+      background:#e5eefc;
+      border:2px dashed #6b7280;
+      border-radius:10px;
+      padding:12px;
+      text-align:center;
+      font-weight:bold;
+      margin-bottom:14px;
+      color:#1e3a8a;
+    }
+
+    .sidebar-box{
+      border:2px dashed #9ca3af;
+      border-radius:10px;
+      padding:10px;
+      margin-bottom:10px;
+      background:#fafafa;
+      font-size:13px;
+    }
+
+    .wire-row{
+      display:grid;
+      grid-template-columns:220px 1fr;
+      gap:14px;
+    }
+
+    .nav-box{
+      border:2px dashed #9ca3af;
+      border-radius:10px;
+      padding:10px;
+      min-height:420px;
+      background:#fafafa;
+    }
+
+    .nav-item{
+      border:1px dashed #9ca3af;
+      border-radius:8px;
+      padding:9px;
+      margin-bottom:8px;
+      font-size:13px;
+      background:#fff;
+    }
+
+    .content-area{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .card{
+      border:2px dashed #9ca3af;
+      border-radius:10px;
+      padding:10px;
+      background:#fafafa;
+    }
+
+    .small{ min-height:64px; }
+    .medium{ min-height:110px; }
+    .large{ min-height:180px; }
+    .xlarge{ min-height:240px; }
+
+    .title{
+      font-size:13px;
+      font-weight:bold;
+      margin-bottom:8px;
+      color:#374151;
+    }
+
+    .line{
+      height:10px;
+      background:#e5e7eb;
+      border-radius:6px;
+      margin-bottom:8px;
+    }
+
+    .line.short{ width:45%; }
+    .line.med{ width:70%; }
+    .line.long{ width:90%; }
+
+    .chip-row{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .chip{
+      border:1px dashed #9ca3af;
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:11px;
+      background:white;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .three-col{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:10px;
+    }
+
+    .metric{
+      border:2px dashed #9ca3af;
+      border-radius:10px;
+      padding:12px;
+      text-align:center;
+      background:#fafafa;
+      min-height:88px;
+    }
+
+    .metric .num{
+      font-size:26px;
+      font-weight:bold;
+      color:#1d4ed8;
+      margin-bottom:6px;
+    }
+
+    .button{
+      margin-top:8px;
+      border:2px solid #93c5fd;
+      background:#dbeafe;
+      color:#1d4ed8;
+      font-weight:bold;
+      text-align:center;
+      padding:12px;
+      border-radius:10px;
+      font-size:13px;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:12px;
+      margin-top:6px;
+    }
+
+    .table td, .table th{
+      border:1px dashed #9ca3af;
+      padding:8px;
+      text-align:left;
+    }
+
+    .assistant-chat{
+      border:2px dashed #9ca3af;
+      border-radius:10px;
+      padding:10px;
+      background:#fafafa;
+      min-height:180px;
+    }
+
+    .msg{
+      border:1px dashed #9ca3af;
+      border-radius:10px;
+      padding:8px;
+      margin-bottom:8px;
+      background:#fff;
+      font-size:12px;
+    }
+
+    .footer{
+      max-width:1400px;
+      margin:28px auto 0;
+      text-align:center;
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    @media(max-width:1000px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+      .wire-row{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Meet-IQ</h1>
+  <div class="subtitle">AI-Powered Pre-Meeting Intelligence Agent</div>
+  <div class="flow-title">Low-fidelity wireframes based on the working Meet-IQ MVP</div>
+
+  <div class="grid">
+
+    <!-- SCREEN 1 -->
+    <div class="screen">
+      <div class="screen-header">Screen 1 — Dashboard</div>
+
+      <div class="wire-row">
+        <div class="nav-box">
+          <div class="title">Sidebar Navigation</div>
+          <div class="nav-item">🏠 Dashboard</div>
+          <div class="nav-item">📅 Meetings</div>
+          <div class="nav-item">📄 Executive Brief</div>
+          <div class="nav-item">🏢 Company Intelligence</div>
+          <div class="nav-item">💰 Financial Intelligence</div>
+          <div class="nav-item">👥 Stakeholder Insights</div>
+          <div class="nav-item">📋 Last Meeting Notes</div>
+          <div class="nav-item">⚔️ Competitor Intelligence</div>
+          <div class="nav-item">📈 Social Sentiment</div>
+          <div class="nav-item">🤖 AI Assistant</div>
+        </div>
+
+        <div class="content-area">
+          <div class="card medium">
+            <div class="title">Hero Banner</div>
+            <div class="line long"></div>
+            <div class="line med"></div>
+            <div class="chip-row">
+              <div class="chip">30-sec Brief</div>
+              <div class="chip">Detailed Intelligence</div>
+              <div class="chip">Synthetic Demo Data</div>
+            </div>
+          </div>
+
+          <div class="card medium">
+            <div class="title">Meeting Intelligence Generator</div>
+            <div class="two-col">
+              <div>
+                <div class="line med"></div>
+                <div class="line med"></div>
+              </div>
+              <div>
+                <div class="line med"></div>
+                <div class="line med"></div>
+              </div>
+            </div>
+            <div class="button">Generate Meet-IQ Brief</div>
+          </div>
+
+          <div class="three-col">
+            <div class="metric">
+              <div class="num">92%</div>
+              Meeting Readiness
+            </div>
+            <div class="metric">
+              <div class="num">88%</div>
+              AI Confidence
+            </div>
+            <div class="metric">
+              <div class="num">5</div>
+              Key Signals
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="card medium">
+              <div class="title">Company Snapshot Card</div>
+              <div class="line med"></div>
+              <div class="line short"></div>
+              <div class="line long"></div>
+            </div>
+            <div class="card medium">
+              <div class="title">Last Minute Quick Notes</div>
+              <div class="line long"></div>
+              <div class="line med"></div>
+              <div class="line long"></div>
+              <div class="line med"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 2 -->
+    <div class="screen">
+      <div class="screen-header">Screen 2 — Meetings Workspace</div>
+
+      <div class="two-col">
+        <div class="card large">
+          <div class="title">Upcoming Meetings</div>
+          <table class="table">
+            <tr><th>Meeting</th><th>Time</th></tr>
+            <tr><td>HubSpot — QBR</td><td>11:00 AM</td></tr>
+            <tr><td>Salesforce — Demo Follow-up</td><td>2:00 PM</td></tr>
+            <tr><td>Zoho — Pricing Review</td><td>4:30 PM</td></tr>
+          </table>
+        </div>
+
+        <div class="card large">
+          <div class="title">Selected Meeting Context</div>
+          <table class="table">
+            <tr><td>Company</td><td>HubSpot</td></tr>
+            <tr><td>Meeting Type</td><td>QBR Strategic Review</td></tr>
+            <tr><td>Date & Time</td><td>Tomorrow, 11:00 AM</td></tr>
+            <tr><td>Participants</td><td>CEO, CRO, VP Sales</td></tr>
+            <tr><td>Previous Meetings</td><td>3</td></tr>
+          </table>
+          <div class="button">Generate Brief / Open Executive Brief</div>
+        </div>
+      </div>
+
+      <div class="card medium">
+        <div class="title">Expected User Action</div>
+        <div class="line long"></div>
+        <div class="line med"></div>
+        <div class="line short"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 3 -->
+    <div class="screen">
+      <div class="screen-header">Screen 3 — Executive Brief</div>
+
+      <div class="card medium">
+        <div class="title">Executive Narrative</div>
+        <div class="line long"></div>
+        <div class="line long"></div>
+        <div class="line med"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="card medium">
+          <div class="title">Recommended Talking Points</div>
+          <div class="line med"></div>
+          <div class="line med"></div>
+          <div class="line med"></div>
+          <div class="line short"></div>
+        </div>
+
+        <div class="card medium">
+          <div class="title">Suggested Questions</div>
+          <div class="line long"></div>
+          <div class="line med"></div>
+          <div class="line long"></div>
+        </div>
+      </div>
+
+      <div class="card small">
+        <div class="title">Signals Referenced</div>
+        <div class="chip-row">
+          <div class="chip">CRM Notes</div>
+          <div class="chip">News Signals</div>
+          <div class="chip">Meeting History</div>
+          <div class="chip">Leadership Signals</div>
+        </div>
+      </div>
+
+      <div class="button">+ View Detailed Brief</div>
+    </div>
+
+    <!-- SCREEN 4 -->
+    <div class="screen">
+      <div class="screen-header">Screen 4 — Detailed Brief</div>
+
+      <div class="two-col">
+        <div class="card medium">
+          <div class="title">Company Overview</div>
+          <table class="table">
+            <tr><td>Industry</td><td>SaaS</td></tr>
+            <tr><td>Headquarters</td><td>Boston</td></tr>
+            <tr><td>Employees</td><td>8000+</td></tr>
+            <tr><td>Funding</td><td>Public Company</td></tr>
+          </table>
+        </div>
+
+        <div class="card medium">
+          <div class="title">Last Meeting Summary</div>
+          <div class="line long"></div>
+          <div class="line long"></div>
+          <div class="line med"></div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card medium">
+          <div class="title">Financial Snapshot</div>
+          <table class="table">
+            <tr><td>Revenue</td><td>$2.5B</td></tr>
+            <tr><td>Growth</td><td>22% YoY</td></tr>
+            <tr><td>EBITDA Margin</td><td>14%</td></tr>
+            <tr><td>Funding</td><td>Public</td></tr>
+          </table>
+        </div>
+
+        <div class="card medium">
+          <div class="title">Recommended Meeting Strategy</div>
+          <div class="line long"></div>
+          <div class="line long"></div>
+          <div class="line med"></div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card small">
+          <div class="title">Leadership Intelligence</div>
+          <div class="line med"></div>
+          <div class="line short"></div>
+        </div>
+
+        <div class="card small">
+          <div class="title">CRM Opportunity Context</div>
+          <div class="line med"></div>
+          <div class="line med"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 5 -->
+    <div class="screen">
+      <div class="screen-header">Screen 5 — Financial + Competitor Intelligence</div>
+
+      <div class="three-col">
+        <div class="metric">
+          <div class="num">$2.5B</div>
+          Revenue
+        </div>
+        <div class="metric">
+          <div class="num">22%</div>
+          YoY Growth
+        </div>
+        <div class="metric">
+          <div class="num">14%</div>
+          EBITDA Margin
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top:12px;">
+        <div class="card medium">
+          <div class="title">Funding Timeline</div>
+          <div class="line med"></div>
+          <div class="line long"></div>
+          <div class="line med"></div>
+          <div class="line long"></div>
+        </div>
+
+        <div class="card medium">
+          <div class="title">Simplified P&L</div>
+          <table class="table">
+            <tr><td>Revenue</td><td>$2.5B</td></tr>
+            <tr><td>Cost</td><td>$1.4B</td></tr>
+            <tr><td>Opex</td><td>$0.75B</td></tr>
+            <tr><td>Profit</td><td>$0.35B</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card medium">
+        <div class="title">Competitor Updates</div>
+        <table class="table">
+          <tr><th>Competitor</th><th>Signal</th><th>Impact</th></tr>
+          <tr><td>Salesforce</td><td>AI-led GTM enhancement</td><td>Higher expectations</td></tr>
+          <tr><td>Zoho</td><td>Value pricing push</td><td>Pricing pressure</td></tr>
+          <tr><td>Freshworks</td><td>Automation narrative</td><td>Support-use-case overlap</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- SCREEN 6 -->
+    <div class="screen">
+      <div class="screen-header">Screen 6 — AI Assistant</div>
+
+      <div class="card small">
+        <div class="title">Prompt Suggestions</div>
+        <div class="chip-row">
+          <div class="chip">Summarize in 30 seconds</div>
+          <div class="chip">Top risks</div>
+          <div class="chip">Last meeting recap</div>
+          <div class="chip">Best opening line</div>
+        </div>
+      </div>
+
+      <div class="assistant-chat">
+        <div class="msg">
+          <strong>Assistant:</strong> Hi, I’m Meet-IQ Assistant. Ask about the selected company, risks, financials, or last meeting context.
+        </div>
+        <div class="msg">
+          <strong>User:</strong> Summarize this company in 30 seconds.
+        </div>
+        <div class="msg">
+          <strong>Assistant:</strong> HubSpot shows strong growth momentum, increasing AI focus, and strong commercial scaling signals. Best discussion areas: growth priorities, AI roadmap, and operational efficiency.
+        </div>
+      </div>
+
+      <div class="card small" style="margin-top:12px;">
+        <div class="title">Assistant Recommendation</div>
+        <div class="line long"></div>
+        <div class="line med"></div>
+      </div>
+
+      <div class="two-col">
+        <div class="button">Export to PDF</div>
+        <div class="button">Send Brief to Email</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Figure: Meet-IQ Low-Fidelity Wireframes — built from the final MVP structure for Phase 5 submission
+  </div>
+
+</body>
+</html>
