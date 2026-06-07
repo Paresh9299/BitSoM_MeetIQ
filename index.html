@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meet-IQ MVP</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --primary:#2563eb;
+      --primary-soft:#dbeafe;
+      --nav:#0f172a;
+      --nav-soft:#1e293b;
+      --success:#16a34a;
+      --warning:#f59e0b;
+      --danger:#dc2626;
+      --purple:#7c3aed;
+      --shadow:0 10px 28px rgba(15,23,42,0.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;
+      padding:0;
+      font-family:Segoe UI, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    body{min-height:100vh}
+
+    .app{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      width:255px;
+      background:linear-gradient(180deg,#0f172a 0%, #111827 100%);
+      color:#fff;
+      padding:22px 18px;
+      position:fixed;
+      top:0;left:0;bottom:0;
+      overflow:auto;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .brand-icon{
+      width:46px;height:46px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#60a5fa,#2563eb);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:22px;
+      box-shadow:0 12px 24px rgba(37,99,235,0.28);
+    }
+
+    .brand h1{
+      margin:0;
+      font-size:24px;
+      line-height:1;
+    }
+
+    .brand p{
+      margin:5px 0 0;
+      font-size:12px;
+      color:#cbd5e1;
+    }
+
+    .assistant-mini{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:14px;
+      margin-bottom:18px;
+    }
+
+    .assistant-mini-top{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .assistant-avatar{
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#22c55e,#16a34a);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+    }
+
+    .assistant-mini h3{
+      margin:0;
+      font-size:14px;
+    }
+
+    .assistant-mini small{
+      color:#cbd5e1;
+    }
+
+    .status-line{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      margin-top:10px;
+      color:#dbeafe;
+      font-size:12px;
+    }
+
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:#22c55e;
+      box-shadow:0 0 0 5px rgba(34,197,94,0.12);
+    }
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .nav button{
+      width:100%;
+      border:none;
+      background:transparent;
+      color:#e2e8f0;
+      text-align:left;
+      padding:12px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.2s ease;
+      font-size:14px;
+    }
+
+    .nav button:hover,
+    .nav button.active{
+      background:#1e293b;
+      color:#fff;
+    }
+
+    /* Main */
+    .main{
+      width:calc(100% - 255px);
+      margin-left:255px;
+      padding:24px;
+    }
+
+    .hero{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      background:linear-gradient(135deg,#eff6ff 0%, #eef2ff 100%);
+      border:1px solid #dbeafe;
+      border-radius:22px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+
+    .hero h2{
+      margin:0 0 8px;
+      font-size:30px;
+    }
+
+    .hero p{
+      margin:0;
+      max-width:760px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      background:#fff;
+      color:#1d4ed8;
+      border:1px solid #dbeafe;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .hero-logo{
+      width:120px;
+      height:120px;
+      border-radius:28px;
+      background:radial-gradient(circle at 30% 30%, #93c5fd 0%, #2563eb 60%, #1d4ed8 100%);
+      position:relative;
+      flex-shrink:0;
+      box-shadow:0 18px 32px rgba(37,99,235,0.24);
+    }
+
+    .hero-logo::before{
+      content:"";
+      position:absolute;
+      inset:16px;
+      border:2px solid rgba(255,255,255,0.35);
+      border-radius:20px;
+    }
+
+    .hero-logo::after{
+      content:"MIQ";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:26px;
+      font-weight:800;
+      letter-spacing:1px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin-bottom:16px;
+    }
+
+    .card h2,.card h3,.card h4{margin:0 0 10px}
+    .muted{color:var(--muted)}
+
+    .selector-grid{
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:14px;
+      align-items:end;
+    }
+
+    .label{
+      display:block;
+      margin-bottom:6px;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    input,select,textarea{
+      width:100%;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      font-size:14px;
+      outline:none;
+    }
+
+    textarea{
+      resize:vertical;
+      min-height:90px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:12px;
+      padding:12px 14px;
+      cursor:pointer;
+      font-weight:700;
+      transition:.2s ease;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 12px 22px rgba(37,99,235,0.22);
+    }
+
+    .btn-primary:hover{transform:translateY(-1px)}
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .btn-ghost{
+      background:#eff6ff;
+      color:#1d4ed8;
+      border:1px solid #dbeafe;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .kpi{
+      font-size:34px;
+      font-weight:800;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .blue{color:var(--primary)}
+    .green{color:var(--success)}
+    .purple{color:var(--purple)}
+    .orange{color:var(--warning)}
+    .red{color:var(--danger)}
+
+    .company-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .company-logo{
+      width:54px;
+      height:54px;
+      border-radius:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:20px;
+      font-weight:800;
+      box-shadow:0 12px 24px rgba(15,23,42,0.12);
+    }
+
+    .alert{
+      border-radius:14px;
+      padding:14px;
+      font-size:14px;
+      line-height:1.5;
+      border:1px solid transparent;
+      margin-top:10px;
+    }
+
+    .alert-blue{
+      background:#eff6ff;
+      border-color:#bfdbfe;
+      color:#1d4ed8;
+    }
+
+    .alert-yellow{
+      background:#fffbeb;
+      border-color:#fde68a;
+      color:#92400e;
+    }
+
+    .alert-red{
+      background:#fef2f2;
+      border-color:#fecaca;
+      color:#991b1b;
+    }
+
+    .alert-green{
+      background:#f0fdf4;
+      border-color:#bbf7d0;
+      color:#166534;
+    }
+
+    .mini-kpis{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .mini-box{
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+    }
+
+    .mini-title{
+      font-size:12px;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .mini-value{
+      font-weight:800;
+    }
+
+    .list{
+      margin:0;
+      padding-left:20px;
+    }
+
+    .list li{
+      margin-bottom:8px;
+      line-height:1.45;
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .news-card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .news-thumb{
+      height:100px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:30px;
+      background:linear-gradient(135deg,#bfdbfe,#c7d2fe);
+    }
+
+    .news-text{
+      padding:12px;
+    }
+
+    .news-text h4{
+      margin:0 0 6px;
+      font-size:14px;
+    }
+
+    .news-text p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:14px;
+    }
+
+    .table th,.table td{
+      border-bottom:1px solid var(--line);
+      padding:10px;
+      text-align:left;
+      vertical-align:top;
+    }
+
+    .table th{
+      background:#f8fafc;
+      color:#334155;
+    }
+
+    .tag-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:7px 11px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .tag-blue{background:#dbeafe;color:#1d4ed8}
+    .tag-green{background:#dcfce7;color:#166534}
+    .tag-purple{background:#ede9fe;color:#5b21b6}
+    .tag-orange{background:#fef3c7;color:#92400e}
+    .tag-red{background:#fee2e2;color:#991b1b}
+
+    .page{display:none}
+    .page.active{display:block}
+
+    .expand-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:#eff6ff;
+      color:#1d4ed8;
+      border:1px solid #dbeafe;
+      border-radius:12px;
+      padding:10px 12px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .expand-content{
+      display:none;
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed var(--line);
+    }
+
+    .timeline{
+      position:relative;
+      padding-left:24px;
+    }
+
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:8px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:#dbeafe;
+    }
+
+    .timeline-item{
+      position:relative;
+      margin-bottom:16px;
+      padding-left:8px;
+    }
+
+    .timeline-item::before{
+      content:"";
+      position:absolute;
+      left:-19px;
+      top:6px;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--primary);
+      box-shadow:0 0 0 5px rgba(37,99,235,0.15);
+    }
+
+    .progress{
+      height:10px;
+      border-radius:999px;
+      background:#e2e8f0;
+      overflow:hidden;
+    }
+
+    .progress span{
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,#60a5fa,#2563eb);
+    }
+
+    .chatbox{
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      background:#fbfdff;
+    }
+
+    .chat-messages{
+      max-height:420px;
+      overflow:auto;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:18px;
+    }
+
+    .msg{
+      max-width:78%;
+      padding:12px 14px;
+      border-radius:16px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .msg.user{
+      align-self:flex-end;
+      background:#dbeafe;
+      color:#1e3a8a;
+      border-bottom-right-radius:6px;
+    }
+
+    .msg.bot{
+      align-self:flex-start;
+      background:#eef2ff;
+      color:#312e81;
+      border-bottom-left-radius:6px;
+    }
+
+    .chat-input{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      padding:14px;
+      border-top:1px solid var(--line);
+      background:#fff;
+    }
+
+    .footer-note{
+      font-size:12px;
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    @media (max-width:1200px){
+      .selector-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .grid-2,.grid-3,.mini-kpis,.news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width:900px){
+      .app{display:block}
+      .sidebar{
+        position:static;
+        width:100%;
+        height:auto;
+      }
+      .main{
+        width:100%;
+        margin-left:0;
+      }
+      .grid-2,.grid-3,.mini-kpis,.news-grid,.selector-grid,.chat-input{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">M</div>
+        <div>
+          <h1>Meet-IQ</h1>
+          <p>AI Pre-Meeting Intelligence Agent</p>
+        </div>
+      </div>
+
+      <div class="assistant-mini">
+        <div class="assistant-mini-top">
+          <div class="assistant-avatar">🤖</div>
+          <div>
+            <h3>Meet-IQ Assistant</h3>
+            <small>Demo mode · Synthetic data only</small>
+          </div>
+        </div>
+        <div class="status-line"><span class="dot"></span> Monitoring selected account</div>
+      </div>
+
+      <div class="nav">
+        <button class="active" onclick="showPage('dashboard', this)">🏠 Dashboard</button>
+        <button onclick="showPage('meetings', this)">📅 Meetings</button>
+        <button onclick="showPage('brief', this)">📄 Executive Brief</button>
+        <button onclick="showPage('company', this)">🏢 Company Intelligence</button>
+        <button onclick="showPage('financial', this)">💰 Financial Intelligence</button>
+        <button onclick="showPage('stakeholders', this)">👥 Stakeholder Insights</button>
+        <button onclick="showPage('lastMeeting', this)">📋 Last Meeting Notes</button>
+        <button onclick="showPage('competitors', this)">⚔️ Competitor Intelligence</button>
+        <button onclick="showPage('sentiment', this)">📈 Social Sentiment</button>
+        <button onclick="showPage('assistant', this)">🤖 AI Assistant</button>
+        <button onclick="showPage('settings', this)">⚙️ Settings</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div>
+          <h2>Meet smarter. Sell better.</h2>
+          <p>
+            Meet-IQ is an AI-powered pre-meeting intelligence workspace for B2B SaaS sales teams.
+            It turns fragmented company information into a fast executive summary, financial snapshot,
+            stakeholder context, meeting continuity, competitor signals, and suggested talking points.
+          </p>
+          <div class="hero-badges">
+            <span class="pill">30-second brief</span>
+            <span class="pill">Detailed drill-down pages</span>
+            <span class="pill">Quick notes before meetings</span>
+            <span class="pill">Synthetic demo data</span>
+            <span class="pill">Academic MVP</span>
+          </div>
+        </div>
+        <div class="hero-logo"></div>
+      </section>
+
+      <section class="card">
+        <h3 style="margin-bottom:14px;">Meeting Intelligence Generator</h3>
+        <div class="selector-grid">
+          <div>
+            <label class="label">Company</label>
+            <select id="companySelect" onchange="loadCompany()">
+              <option>HubSpot</option>
+              <option>Salesforce</option>
+              <option>Zoho</option>
+              <option>Freshworks</option>
+              <option>Microsoft</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="label">Meeting Type</label>
+            <select id="meetingTypeSelect" onchange="loadMeetingContext()">
+              <option>QBR Strategic Review</option>
+              <option>Executive Introduction</option>
+              <option>Product Demo Follow-up</option>
+              <option>Pricing & Negotiation</option>
+              <option>Renewal / Expansion Discussion</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="label">Date & Time</label>
+            <input id="meetingDate" value="Tomorrow, 11:00 AM" />
+          </div>
+
+          <div>
+            <label class="label">Participants</label>
+            <input id="participants" value="CEO, CRO, VP Sales" />
+          </div>
+
+          <div>
+            <label class="label">&nbsp;</label>
+            <button class="btn btn-primary" style="width:100%;" onclick="generateBrief()">Generate Meet-IQ Brief</button>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          This MVP uses only synthetic placeholder intelligence for academic/demo purposes.
+        </div>
+      </section>
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page active">
+        <div class="grid-3">
+          <div class="card">
+            <div class="kpi blue" id="dashboardReadiness">92%</div>
+            <h4>Meeting Readiness</h4>
+            <div class="muted">Preparedness for the selected meeting</div>
+          </div>
+
+          <div class="card">
+            <div class="kpi green" id="dashboardConfidence">88%</div>
+            <h4>AI Confidence</h4>
+            <div class="muted">Confidence across available signals</div>
+          </div>
+
+          <div class="card">
+            <div class="kpi purple" id="dashboardSignals">5</div>
+            <h4>Key Signals</h4>
+            <div class="muted">Priority signals surfaced for this account</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="company-head">
+              <div id="dashboardLogo" class="company-logo">H</div>
+              <div>
+                <h2 id="dashboardCompanyName">HubSpot</h2>
+                <div class="muted" id="dashboardMeetingLine">QBR Strategic Review · Tomorrow, 11:00 AM</div>
+              </div>
+            </div>
+
+            <div class="alert alert-blue" id="openingLine">
+              Suggested opening line will appear here.
+            </div>
+
+            <div class="mini-kpis">
+              <div class="mini-box">
+                <div class="mini-title">Revenue</div>
+                <div class="mini-value" id="miniRevenue">$2.5B</div>
+              </div>
+              <div class="mini-box">
+                <div class="mini-title">Growth</div>
+                <div class="mini-value" id="miniGrowth">22% YoY</div>
+              </div>
+              <div class="mini-box">
+                <div class="mini-title">Sentiment</div>
+                <div class="mini-value" id="miniSentiment">Positive</div>
+              </div>
+              <div class="mini-box">
+                <div class="mini-title">Risk</div>
+                <div class="mini-value" id="miniRisk">Medium</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>⚡ Last Minute Quick Notes</h3>
+            <ul class="list" id="quickNotes"></ul>
+          </div>
+        </div>
+
+        <div class="card" id="dashboardBrief" style="display:none;">
+          <h2>⚡ Meet-IQ Executive Summary</h2>
+          <div class="alert alert-green">
+            <strong>Brief generated.</strong> Use these bullets as your quick 30-second pre-meeting overview.
+          </div>
+          <ul class="list" id="briefBullets"></ul>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Top Headlines</h3>
+            <div class="news-grid" id="headlineCards"></div>
+          </div>
+
+          <div class="card">
+            <h3>🚨 Risk Alerts</h3>
+            <div id="riskAlerts"></div>
+            <div class="alert alert-yellow" id="recommendedObjective" style="margin-top:14px;">
+              Recommended objective will appear here.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEETINGS -->
+      <section id="meetings" class="page">
+        <div class="card">
+          <h2>Meetings Workspace</h2>
+          <div class="muted">Simulated account meeting queue and selected meeting context.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Upcoming Meetings</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Meeting</th>
+                  <th>Time</th>
+                  <th>Participants</th>
+                </tr>
+              </thead>
+              <tbody id="meetingTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Selected Meeting Context</h3>
+            <table class="table">
+              <tbody>
+                <tr><td>Company</td><td id="selectedCompanyLabel">HubSpot</td></tr>
+                <tr><td>Meeting Type</td><td id="selectedMeetingLabel">QBR Strategic Review</td></tr>
+                <tr><td>Date & Time</td><td id="selectedDateLabel">Tomorrow, 11:00 AM</td></tr>
+                <tr><td>Participants</td><td id="selectedParticipantsLabel">CEO, CRO, VP Sales</td></tr>
+                <tr><td>Previous Meetings</td><td id="selectedPreviousMeetings">3</td></tr>
+                <tr><td>Brief Status</td><td id="briefStatus">Not generated</td></tr>
+              </tbody>
+            </table>
+
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-primary" onclick="generateBrief()">Generate Meet-IQ Brief</button>
+              <button class="btn btn-secondary" onclick="jumpToBrief()">Open Executive Brief</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXECUTIVE BRIEF -->
+      <section id="brief" class="page">
+        <div class="card">
+          <div class="company-head">
+            <div id="briefLogo" class="company-logo">H</div>
+            <div>
+              <h2 id="briefHeading">Executive Brief · HubSpot</h2>
+              <div class="muted">AI-generated overview for the selected meeting</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Executive Narrative</h3>
+            <p id="briefNarrative" class="muted" style="line-height:1.7;"></p>
+          </div>
+
+          <div class="card">
+            <h3>Recommended Talking Points</h3>
+            <ul class="list" id="talkingPoints"></ul>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Suggested Questions</h3>
+            <ul class="list" id="suggestedQuestions"></ul>
+          </div>
+
+          <div class="card">
+            <h3>Signals Referenced</h3>
+            <div class="tag-row" id="sourceTags"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <button class="expand-btn" onclick="toggleDetailedBrief()">
+            <span id="expandIcon">+</span> View Detailed Brief
+          </button>
+
+          <div class="expand-content" id="detailedBriefContent">
+            <div class="grid-2" style="margin-top:16px;">
+              <div class="card" style="margin-bottom:0;">
+                <h3>Company Overview</h3>
+                <table class="table">
+                  <tbody id="companyOverviewTable"></tbody>
+                </table>
+              </div>
+
+              <div class="card" style="margin-bottom:0;">
+                <h3>Last Meeting Summary</h3>
+                <div id="lastMeetingSummary"></div>
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:16px;">
+              <div class="card" style="margin-bottom:0;">
+                <h3>Financial Snapshot</h3>
+                <table class="table">
+                  <tbody id="financialSnapshotTable"></tbody>
+                </table>
+              </div>
+
+              <div class="card" style="margin-bottom:0;">
+                <h3>Recommended Meeting Strategy</h3>
+                <div id="meetingStrategy"></div>
+              </div>
+            </div>
+
+            <div class="grid-2" style="margin-top:16px;">
+              <div class="card" style="margin-bottom:0;">
+                <h3>Leadership Intelligence</h3>
+                <div id="leadershipBox"></div>
+              </div>
+
+              <div class="card" style="margin-bottom:0;">
+                <h3>CRM Opportunity Context</h3>
+                <div id="crmBox"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPANY -->
+      <section id="company" class="page">
+        <div class="card">
+          <div class="company-head">
+            <div id="companyPageLogo" class="company-logo">H</div>
+            <div>
+              <h2 id="companyPageHeading">Company Intelligence · HubSpot</h2>
+              <div class="muted">Profile, offerings, growth signals, and recent updates</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Core Profile</h3>
+            <table class="table">
+              <tbody id="companyProfileTable"></tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Growth Signals</h3>
+            <ul class="list" id="growthSignals"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Recent Intelligence</h3>
+          <div class="news-grid" id="companyNewsCards"></div>
+        </div>
+      </section>
+
+      <!-- FINANCIAL -->
+      <section id="financial" class="page">
+        <div class="card">
+          <h2>Financial Intelligence</h2>
+          <div class="muted">Funding, growth, and simplified P&L snapshot for demo purposes.</div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="kpi blue" id="finRevenue">$2.5B</div>
+            <h4>Revenue</h4>
+            <div class="muted">Annual revenue estimate</div>
+          </div>
+
+          <div class="card">
+            <div class="kpi green" id="finGrowth">22%</div>
+            <h4>YoY Growth</h4>
+            <div class="muted">Commercial momentum signal</div>
+          </div>
+
+          <div class="card">
+            <div class="kpi orange" id="finMargin">14%</div>
+            <h4>EBITDA Margin</h4>
+            <div class="muted">Efficiency / profitability signal</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Funding Timeline</h3>
+            <div class="timeline" id="fundingTimeline"></div>
+          </div>
+
+          <div class="card">
+            <h3>Simplified P&L Snapshot</h3>
+            <table class="table">
+              <tbody id="pnlTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- STAKEHOLDERS -->
+      <section id="stakeholders" class="page">
+        <div class="card">
+          <h2>Stakeholder Insights</h2>
+          <div class="muted">Decision-makers, leadership changes, and relationship context.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Key Stakeholders</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
+              <tbody id="stakeholderTable"></tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Leadership Changes</h3>
+            <ul class="list" id="leadershipChanges"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAST MEETING -->
+      <section id="lastMeeting" class="page">
+        <div class="card">
+          <h2>Last Meeting Notes</h2>
+          <div class="muted">Continuity view to reconnect with previous discussion and open actions.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Previous Meeting Summary</h3>
+            <div id="previousMeetingSummary"></div>
+          </div>
+
+          <div class="card">
+            <h3>Open Follow-Ups</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Owner</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="followupTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPETITORS -->
+      <section id="competitors" class="page">
+        <div class="card">
+          <h2>Competitor Intelligence</h2>
+          <div class="muted">Competitive moves, pricing signals, and risk view.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Competitive Updates</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Competitor</th>
+                  <th>Signal</th>
+                  <th>Impact</th>
+                </tr>
+              </thead>
+              <tbody id="competitorTable"></tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Strategic Risk View</h3>
+            <div id="competitorRisks"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SENTIMENT -->
+      <section id="sentiment" class="page">
+        <div class="card">
+          <h2>Social Sentiment</h2>
+          <div class="muted">Simplified market perception simulation for demo purposes.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Sentiment Distribution</h3>
+            <div id="sentimentBars"></div>
+          </div>
+
+          <div class="card">
+            <h3>Top Themes</h3>
+            <ul class="list" id="sentimentThemes"></ul>
+            <div class="alert alert-blue" id="sentimentInterpretation" style="margin-top:14px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ASSISTANT -->
+      <section id="assistant" class="page">
+        <div class="card">
+          <h2>Meet-IQ Assistant</h2>
+          <div class="muted">Use a few prompts during your video demo to make the MVP feel more dynamic.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Prompt Suggestions</h3>
+            <div class="tag-row" style="margin-bottom:12px;">
+              <span class="tag tag-blue" onclick="sendSuggestedPrompt('Summarize this company in 30 seconds')">Summarize in 30 seconds</span>
+              <span class="tag tag-blue" onclick="sendSuggestedPrompt('What risks should I discuss?')">What risks should I discuss?</span>
+              <span class="tag tag-blue" onclick="sendSuggestedPrompt('What happened since the last meeting?')">What happened since last meeting?</span>
+              <span class="tag tag-blue" onclick="sendSuggestedPrompt('What is the best opening line for this meeting?')">Best opening line</span>
+            </div>
+
+            <div class="chatbox">
+              <div class="chat-messages" id="chatMessages">
+                <div class="msg bot">Hi, I’m Meet-IQ Assistant. Ask about the selected company, risks, opening line, financials, or last meeting context.</div>
+              </div>
+              <div class="chat-input">
+                <input id="chatInput" placeholder="Ask Meet-IQ something..." />
+                <button class="btn btn-primary" onclick="sendChat()">Send</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Assistant Recommendation</h3>
+            <div id="assistantRecommendation"></div>
+
+            <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="btn btn-secondary" onclick="simulateExport()">Export to PDF</button>
+              <button class="btn btn-ghost" onclick="simulateEmail()">Send Brief to Email</button>
+            </div>
+
+            <div class="footer-note" id="simActionMsg" style="margin-top:14px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings" class="page">
+        <div class="card">
+          <h2>Settings</h2>
+          <div class="muted">Demo-only configuration options.</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Demo Preferences</h3>
+            <label class="label">Default Brief Mode</label>
+            <select>
+              <option>Executive Brief</option>
+              <option>Detailed Brief</option>
+            </select>
+
+            <label class="label">Theme</label>
+            <select>
+              <option>Light</option>
+              <option>Dark (future enhancement)</option>
+            </select>
+
+            <label class="label">Auto-generate briefing on selection</label>
+            <select>
+              <option>Enabled</option>
+              <option>Disabled</option>
+            </select>
+          </div>
+
+          <div class="card">
+            <h3>Evaluator Notes</h3>
+            <ul class="list">
+              <li>This is a front-end MVP created for academic demonstration.</li>
+              <li>All intelligence and financials are synthetic placeholders.</li>
+              <li>The solution demonstrates AI-assisted meeting preparation for B2B SaaS sales teams.</li>
+              <li>No internal or enterprise data is used in this prototype.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
